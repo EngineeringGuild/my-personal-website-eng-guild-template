@@ -1,0 +1,17 @@
+# .github/workflows/auto-add-to-project.yml
+name: Auto Add Issues/PRs to Project Board
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue/PR to project board
+        uses: alex-page/github-project-automation-plus@v0.8.3
+        with:
+          project: "Personal Website Board"
+          column: "To Do"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

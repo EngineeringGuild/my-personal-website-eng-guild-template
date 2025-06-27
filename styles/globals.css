@@ -1,0 +1,5 @@
+/* personal-website-eng-guild-template/styles/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

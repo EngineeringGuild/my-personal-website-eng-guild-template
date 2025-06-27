@@ -1,0 +1,46 @@
+# /.github/workflows/diagnostics.yml
+# Purpose: Provides on-demand network diagnostic tools for debugging.
+name: 🔍 Network Diagnostics
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-diagnostics:
+    name: 🔬 Run Network Diagnostics
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔌 Advanced Port Connectivity Matrix
+        run: |
+          echo "🔌 ADVANCED PORT CONNECTIVITY MATRIX"
+          echo "===================================="
+          SERVERS=(
+            "files.hostinger.com"
+            "ftp.hostinger.com"
+            "185.239.210.65"
+            "153.92.2.12"
+          )
+          PORTS=(21 22 80 443 990)
+          
+          for server in "${SERVERS[@]}"; do
+            echo "🎯 Testing server: $server"
+            for port in "${PORTS[@]}"; do
+              if timeout 5 bash -c "echo >/dev/tcp/$server/$port" 2>/dev/null; then
+                echo "  ✅ Port $port is OPEN"
+              else
+                echo "  ❌ Port $port is CLOSED/TIMEOUT"
+              fi
+            done
+            echo ""
+          done
+
+      - name: 🔒 FTPS Connectivity Deep Test
+        run: |
+          echo "🔒 FTPS CONNECTIVITY DEEP ANALYSIS"
+          echo "================================="
+          FTPS_SERVER="files.hostinger.com"
+          if timeout 20 openssl s_client -connect $FTPS_SERVER:990 -servername $FTPS_SERVER < /dev/null 2>/dev/null | grep -q "CONNECTED"; then
+            echo "✅ FTPS SSL handshake successful on $FTPS_SERVER"
+          else
+            echo "❌ FTPS SSL handshake failed on $FTPS_SERVER"
+          fi 

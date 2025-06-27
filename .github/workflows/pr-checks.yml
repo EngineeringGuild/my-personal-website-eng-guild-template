@@ -1,0 +1,100 @@
+# /Users/user/Desktop/Core Guild Project/projects/colabs/eng-teams/core/personal-website/prototype/.github/workflows/pr-checks.yml
+# Purpose: Ensures code quality on every pull request before merging.
+name: 🧐 PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering for testing
+
+jobs:
+  # ===============================
+  # CODE QUALITY CHECKS
+  # ===============================
+  quality:
+    name: 📊 Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+          
+      - name: 📚 Install dependencies
+        run: npm ci
+        
+      - name: 🧹 Lint check
+        run: npm run lint
+        
+      - name: 🏗️ Build check
+        run: npm run build
+        
+      - name: 📝 Check commit message format
+        run: npx commitlint --config ./commitlint.config.mjs --from=HEAD~10 --to=HEAD
+        
+      - name: 📊 Bundle size analysis
+        run: |
+          npm run build
+          npx bundlesize
+        continue-on-error: true
+
+  # ===============================
+  # PREVIEW DEPLOYMENT
+  # ===============================
+  preview:
+    name: 🔍 Preview Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+          
+      - name: 📚 Install dependencies
+        run: npm ci
+        
+      - name: 🏗️ Build preview
+        run: npm run build
+        
+      - name: 💬 Comment PR with preview info
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🔍 **Preview Build Complete!** ✅\n\n📊 Build completed successfully for this PR.\n🚀 Ready for review and merge!'
+            }) 
+
+  build:
+    name: 🏗️ Build Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name:  checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build application
+        run: npm run build 

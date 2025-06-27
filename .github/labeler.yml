@@ -1,0 +1,35 @@
+# .github/labeler.yml
+# Auto-labeling configuration for issues and pull requests
+# Labels by file path
+frontend:
+  - 'components/**'
+  - 'pages/**'
+backend:
+  - 'api/**'
+  - 'context/**'
+docs:
+  - 'docs/**'
+  - '*.md'
+  - '.github/ISSUE_TEMPLATE/**'
+  - '.github/pull_request_template.md'
+config:
+  - '*.config.js'
+  - '.github/**'
+  - 'package.json'
+  - 'postcss.config.js'
+  - 'tailwind.config.js'
+  - 'next.config.js'
+# Labels by keywords in title/body
+bug:
+  - 'bug'
+  - 'fix'
+feature:
+  - 'feature'
+  - 'enhancement'
+refactor:
+  - 'refactor'
+  - 'cleanup'
+test:
+  - 'test'
+  - 'unit test'
+  - 'integration test' 

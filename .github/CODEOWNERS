@@ -1,0 +1,13 @@
+# /github/CODEOWNERS
+# CODEOWNERS file for repository: Caioasc/my-personal-website
+# This file enforces code review and responsibility for key project areas.
+# Update this file as the team grows or responsibilities change.
+
+# Owner for all code and documentation (default)
+*       @Caioasc
+
+# Specific ownership (add more as needed)
+/components/   @Caioasc
+/pages/        @Caioasc
+/docs/         @Caioasc
+/.github/      @Caioasc 

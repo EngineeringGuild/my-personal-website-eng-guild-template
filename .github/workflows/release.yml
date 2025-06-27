@@ -1,0 +1,57 @@
+# /.github/workflows/release.yml
+# Purpose: Enterprise-grade manual release workflow. Creates a versioned Git tag and GitHub Release.
+# Usage: Run manually with a semantic version (e.g., v1.2.3). Deployments are triggered by release publication.
+name: 📦 Enterprise Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.2.3)'
+        required: true
+
+jobs:
+  create-release:
+    name: 📦 Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to create tags and releases
+    steps:
+      - name:  checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to get all tags
+
+      - name: 🧪 Validate version format (semantic versioning)
+        id: validate_version
+        run: |
+          if [[ ! "${{ github.event.inputs.version }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Version must follow semantic versioning (e.g., v1.2.3)"
+            exit 1
+          fi
+
+      - name: 🛡️ Check if release already exists
+        id: check_release
+        run: |
+          if gh release view ${{ github.event.inputs.version }} > /dev/null 2>&1; then
+            echo "::error::Release ${{ github.event.inputs.version }} already exists."
+            exit 1
+          else
+            echo "Release ${{ github.event.inputs.version }} does not exist. Proceeding."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📝 Generate Changelog (Manual/Placeholder)
+        id: changelog
+        run: |
+          # For a production-grade setup, use a tool like 'git-cliff' or 'semantic-release' to auto-generate this.
+          echo "Automated release for version ${{ github.event.inputs.version }}." > changelog.md
+
+      - name: 🚀 Create GitHub Release and Tag
+        run: |
+          gh release create ${{ github.event.inputs.version }} \
+            --title "Release ${{ github.event.inputs.version }}" \
+            --notes-file changelog.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
