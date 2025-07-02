@@ -9,6 +9,7 @@ import SocialIcons from '@/components/SocialIcons';
 import Navigation from '@/components/Navigation';
 import MetaTags from '@/components/MetaTags';
 import type { LayoutProps, ThemeMode } from '@/types';
+import { NavigationProvider } from '../context/NavigationContext';
 
 /**
  * Main layout component that wraps all pages
@@ -19,33 +20,35 @@ import type { LayoutProps, ThemeMode } from '@/types';
  * @param title - Optional page title for meta tags
  * @param description - Optional page description for meta tags
  */
-export default function Layout({ 
+const Layout: React.FC<LayoutProps> = ({ 
   children, 
-  title,
-  description 
-}: LayoutProps): JSX.Element {
+  title = "Personal Website",
+  description = "Welcome to my personal website" 
+}) => {
   // Theme management using local storage with proper typing
   const { value: theme, setValue: setTheme } = useLocalStorage<ThemeMode>('theme', 'light');
 
   // Initialize theme based on system preferences and stored value
   useEffect(() => {
-    const html = document.getElementsByTagName('html')[0];
+    const html = document.documentElement!;
+    const storedTheme = localStorage.getItem('theme');
     const isDarkPreferred = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const storedTheme = localStorage.getItem('theme') as ThemeMode | null;
-    
-    if (
-      storedTheme === 'dark' ||
-      (!storedTheme && isDarkPreferred)
-    ) {
-      html.classList.add('dark');
-    } else {
-      html.classList.remove('dark');
+
+    if (html) {
+      if (
+        storedTheme === 'dark' ||
+        (!storedTheme && isDarkPreferred)
+      ) {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
     }
   }, []);
 
   // Update theme when it changes
   useEffect(() => {
-    const html = document.getElementsByTagName('html')[0];
+    const html = document.documentElement!;
     
     if (theme === 'dark') {
       html.classList.add('dark');
@@ -64,46 +67,50 @@ export default function Layout({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 transition duration-1000 ease-in-out dark:text-white dark:bg-blueGray-700">
-      {/* Meta tags with optional props */}
-      <MetaTags title={title} description={description} />
-      
-      {/* Analytics Script - Plausible Analytics */}
-      <Script
-        defer
-        data-domain="caiocastilho.com"
-        src="https://plausible.io/js/plausible.js"
-        strategy="afterInteractive"
-      />
+    <NavigationProvider>
+      <div className="min-h-screen bg-gray-50 dark:bg-blueGray-900 transition-colors duration-200">
+        <MetaTags title={title} description={description} />
+        
+        <Script
+          defer
+          data-domain="caiocastilho.com"
+          src="https://plausible.io/js/plausible.js"
+          strategy="afterInteractive"
+        />
 
-      <div
-        style={{ minWidth: '24rem', maxWidth: '37rem' }}
-        className="flex flex-col items-center justify-center w-2/3"
-      >
-        {/* Dark Mode Toggle - Fixed position */}
-        <div className="fixed top-3 right-3 z-40">
-          <DarkModeToggle
-            isDark={theme === 'dark'}
-            onClick={toggleDarkMode}
-          />
+        <div
+          style={{ minWidth: '24rem', maxWidth: '37rem' }}
+          className="flex flex-col items-center justify-center w-2/3"
+        >
+          <div className="fixed top-3 right-3 z-40">
+            <DarkModeToggle
+              isDark={theme === 'dark'}
+              onClick={toggleDarkMode}
+            />
+          </div>
+
+          <Navigation />
+
+          <motion.div
+            layoutId="border-div"
+            className="flex flex-col items-center justify-center w-full py-8 my-6 mt-16 border-t border-b border-gray-300 dark:border-white"
+          >
+            <AnimatePresence mode="wait">
+              {children}
+            </AnimatePresence>
+          </motion.div>
+
+          <SocialIcons />
         </div>
 
-        {/* Navigation Component */}
-        <Navigation />
-
-        {/* Main Content Area with Animation */}
-        <motion.div
-          layoutId="border-div"
-          className="flex flex-col items-center justify-center w-full py-8 my-6 mt-16 border-t border-b border-gray-300 dark:border-white"
-        >
-          <AnimatePresence mode="wait">
-            {children}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Social Media Icons */}
-        <SocialIcons />
+        <footer className="bg-white dark:bg-blueGray-800 border-t border-gray-200 dark:border-blueGray-600 mt-12">
+          <div className="container mx-auto px-4 py-6 text-center text-gray-600 dark:text-gray-300">
+            <p>&copy; 2024 Personal Website. Built with Next.js and TypeScript.</p>
+          </div>
+        </footer>
       </div>
-    </div>
+    </NavigationProvider>
   );
-}
+};
+
+export default Layout;
