@@ -1,8 +1,13 @@
-// /Core Guild Project/projects/colabs/eng-teams/core/personal-website/personal-website-eng-guild-template/pages/projects.js
+// /Users/user/Desktop/Core%20Guild%20Project/projects/colabs/eng-teams/core/personal-website/personal-website-eng-guild-template/pages/projects.tsx
 
-import Layout from '../components/layout'
+import React from 'react';
+import Layout from '../components/Layout';
 
-export default function ProjectsPage() {
+/**
+ * Projects page component - displays portfolio projects
+ * @returns JSX.Element - Projects page with project listings
+ */
+const ProjectsPage: React.FC = () => {
   return (
     <Layout>
       <div className="w-full max-w-2xl mx-auto">
@@ -15,5 +20,7 @@ export default function ProjectsPage() {
         </div>
       </div>
     </Layout>
-  )
-} 
+  );
+};
+
+export default ProjectsPage; 

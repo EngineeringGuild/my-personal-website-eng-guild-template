@@ -1,9 +1,14 @@
-// /Users/user/Desktop/Core Guild Project/projects/colabs/eng-teams/core/personal-website/personal-website-eng-guild-template/pages/about.js
+// /Users/user/Desktop/Core%20Guild%20Project/projects/colabs/eng-teams/core/personal-website/personal-website-eng-guild-template/pages/about.tsx
 
-import Layout from '../components/layout'
-import { motion } from 'framer-motion'
+import React from 'react';
+import Layout from '../components/Layout';
+import { motion } from 'framer-motion';
 
-export default function About() {
+/**
+ * About page component - displays personal introduction and background information
+ * @returns JSX.Element - About page with animated content
+ */
+const About: React.FC = () => {
   return (
     <Layout>
       <motion.div
@@ -20,7 +25,7 @@ export default function About() {
         <div className="mb-6 text-center text-gray-800 dark:text-white">
           I love planning, reviewing, and expanding businesses. My specialties include project management, 
           scalability development, and business restructuring. I thrive on transforming ideas into executable 
-          strategies and building systems that grow efficiently. My best ablity is make a deep research on the business
+          strategies and building systems that grow efficiently. My best ability is to make a deep research on the business
           and find technologies that will powerup the business.
         </div>
         <div className="text-center text-gray-800 dark:text-white">
@@ -30,5 +35,7 @@ export default function About() {
         </div>
       </motion.div>
     </Layout>
-  )
-}
+  );
+};
+
+export default About; 
