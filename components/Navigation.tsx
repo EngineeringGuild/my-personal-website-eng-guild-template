@@ -8,6 +8,7 @@ import type { NavigationButton, NavigationProps } from '@/types';
 /**
  * Navigation component for the main site navigation
  * Features dynamic navigation states with smooth animations
+ * Uses the new design system for consistent styling
  * 
  * States:
  * - Initial: HOME, ABOUT, + (shows 2 options)
@@ -37,7 +38,7 @@ export default function Navigation({ className = '' }: NavigationProps = {}): JS
       {/* Single navigation bar that expands/contracts */}
       <motion.div 
         layout
-        className="flex flex-wrap justify-center leading-6 items-center mt-8"
+        className="flex flex-wrap justify-center items-center mt-8 gap-2"
       >
         <AnimatePresence mode="popLayout">
           {visibleButtons.map(({ href, label }) => (
@@ -47,11 +48,16 @@ export default function Navigation({ className = '' }: NavigationProps = {}): JS
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.2 }}
+              transition={{ 
+                duration: 0.3,
+                type: "spring",
+                stiffness: 300,
+                damping: 30
+              }}
             >
               <Link href={href}>
                 <button 
-                  className="w-24 py-1 text-xs leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-lightBlue-600 hover:border-lightBlue-600 dark:hover:text-pink-500 transition-colors duration-200 mx-1"
+                  className="nav-link transition-smooth hover:shadow-md active:scale-95"
                   type="button"
                   aria-label={`Navigate to ${label.toLowerCase()} page`}
                 >
@@ -62,15 +68,34 @@ export default function Navigation({ className = '' }: NavigationProps = {}): JS
           ))}
         </AnimatePresence>
         
-        {/* Toggle button (+ or ×) */}
+        {/* Toggle button (+ or ×) with enhanced styling */}
         <motion.button
           layout
-          className="w-8 py-1 text-xl leading-6 tracking-widest border border-gray-300 rounded-full dark:hover:border-pink-500 dark:border-white focus:outline-none hover:text-lightBlue-600 hover:border-lightBlue-600 dark:hover:text-pink-500 flex items-center justify-center ml-2 transition-colors duration-200"
+          className="inline-flex items-center justify-center w-10 h-10 text-lg font-medium border rounded-full transition-smooth hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2"
+          style={{
+            borderColor: 'rgb(var(--color-border))',
+            color: 'rgb(var(--color-text-secondary))',
+            backgroundColor: 'rgb(var(--color-surface))',
+          }}
           onClick={() => setShowNavTopRight(!showNavTopRight)}
           type="button"
           aria-label={showNavTopRight ? "Close navigation menu" : "Open navigation menu"}
+          whileHover={{ 
+            borderColor: 'rgb(var(--color-primary))',
+            color: 'rgb(var(--color-primary))',
+            scale: 1.05
+          }}
+          whileTap={{ scale: 0.95 }}
         >
-          {showNavTopRight ? '×' : '+'}
+          <motion.span
+            key={showNavTopRight ? 'close' : 'open'}
+            initial={{ rotate: 0, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: 180, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {showNavTopRight ? '×' : '+'}
+          </motion.span>
         </motion.button>
       </motion.div>
     </div>

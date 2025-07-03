@@ -3,3 +3,475 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ===================================
+   ENGINEERING GUILD DESIGN SYSTEM
+   =================================== */
+
+@layer base {
+  /* Root Variables for Engineering Guild Design System */
+  :root {
+    /* Typography Scale */
+    --font-size-xs: 0.75rem;    /* 12px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 1rem;     /* 16px */
+    --font-size-lg: 1.125rem;   /* 18px */
+    --font-size-xl: 1.25rem;    /* 20px */
+    --font-size-2xl: 1.5rem;    /* 24px */
+    --font-size-3xl: 1.875rem;  /* 30px */
+    --font-size-4xl: 2.25rem;   /* 36px */
+    --font-size-5xl: 3rem;      /* 48px */
+    --font-size-6xl: 3.75rem;   /* 60px */
+
+    /* Line Heights */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+
+    /* Letter Spacing */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.1em;
+    --letter-spacing-widest: 0.25em;
+
+    /* Spacing Scale */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    --space-3xl: 4rem;     /* 64px */
+    --space-4xl: 6rem;     /* 96px */
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;   /* 4px */
+    --radius-md: 0.5rem;    /* 8px */
+    --radius-lg: 0.75rem;   /* 12px */
+    --radius-xl: 1rem;      /* 16px */
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Engineering Guild Light Theme Colors */
+    --color-primary: 34 197 94;         /* Green-500 - Engineering Guild Primary */
+    --color-primary-dark: 22 163 74;    /* Green-600 - Engineering Guild Dark */
+    --color-secondary: 16 185 129;      /* Emerald-500 - Engineering Guild Secondary */
+    --color-secondary-dark: 5 150 105;  /* Emerald-600 - Engineering Guild Secondary Dark */
+    
+    --color-background: 249 250 251;    /* Gray-50 */
+    --color-surface: 255 255 255;      /* White */
+    --color-surface-hover: 243 244 246; /* Gray-100 */
+    
+    --color-text-primary: 17 24 39;     /* Gray-900 */
+    --color-text-secondary: 75 85 99;   /* Gray-600 */
+    --color-text-muted: 156 163 175;    /* Gray-400 */
+    
+    --color-border: 229 231 235;        /* Gray-200 */
+    --color-border-hover: 209 213 219;  /* Gray-300 */
+    
+    --color-success: 34 197 94;         /* Green-500 */
+    --color-warning: 245 158 11;        /* Amber-500 */
+    --color-error: 239 68 68;           /* Red-500 */
+    
+    /* Engineering Guild Accent Colors */
+    --color-guild-green: 34 197 94;     /* Primary Guild Green */
+    --color-guild-emerald: 16 185 129;  /* Secondary Guild Emerald */
+    --color-guild-mint: 110 231 183;    /* Light Guild Mint */
+  }
+
+  /* Engineering Guild Dark Theme Colors */
+  .dark {
+    --color-primary: 74 222 128;        /* Green-400 - Engineering Guild Primary Dark */
+    --color-primary-dark: 34 197 94;    /* Green-500 - Engineering Guild Dark Mode */
+    --color-secondary: 52 211 153;      /* Emerald-400 - Engineering Guild Secondary Dark */
+    --color-secondary-dark: 16 185 129; /* Emerald-500 - Engineering Guild Secondary Dark Mode */
+    
+    --color-background: 15 23 42;       /* Slate-900 */
+    --color-surface: 30 41 59;          /* Slate-800 */
+    --color-surface-hover: 51 65 85;    /* Slate-700 */
+    
+    --color-text-primary: 248 250 252;  /* Slate-50 */
+    --color-text-secondary: 203 213 225; /* Slate-300 */
+    --color-text-muted: 148 163 184;    /* Slate-400 */
+    
+    --color-border: 51 65 85;           /* Slate-700 */
+    --color-border-hover: 71 85 105;    /* Slate-600 */
+    
+    --color-success: 74 222 128;        /* Green-400 */
+    --color-warning: 251 191 36;        /* Amber-400 */
+    --color-error: 248 113 113;         /* Red-400 */
+    
+    /* Engineering Guild Dark Accent Colors */
+    --color-guild-green: 74 222 128;    /* Primary Guild Green Dark */
+    --color-guild-emerald: 52 211 153;  /* Secondary Guild Emerald Dark */
+    --color-guild-mint: 134 239 172;    /* Light Guild Mint Dark */
+  }
+
+  /* Base Typography */
+  html {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+    color: rgb(var(--color-text-primary));
+    background-color: rgb(var(--color-background));
+    scroll-behavior: smooth;
+  }
+
+  /* Typography Hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    color: rgb(var(--color-text-primary));
+  }
+
+  h1 {
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: var(--font-size-xl);
+    font-weight: 500;
+  }
+
+  h5 {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+  }
+
+  p {
+    color: rgb(var(--color-text-secondary));
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Focus States - Engineering Guild Green */
+  *:focus {
+    outline: 2px solid rgb(var(--color-primary));
+    outline-offset: 2px;
+  }
+
+  /* Selection - Engineering Guild Green */
+  ::selection {
+    background-color: rgb(var(--color-primary) / 0.2);
+    color: rgb(var(--color-text-primary));
+  }
+}
+
+/* ===================================
+   ENGINEERING GUILD COMPONENT UTILITIES
+   =================================== */
+
+@layer components {
+  /* Button Base Styles - Engineering Guild */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    border-radius: var(--radius-lg);
+  }
+
+  .btn-primary {
+    background-color: rgb(var(--color-primary));
+    color: white;
+    border: 1px solid rgb(var(--color-primary));
+  }
+
+  .btn-primary:hover {
+    background-color: rgb(var(--color-primary-dark));
+    border-color: rgb(var(--color-primary-dark));
+  }
+
+  .btn-primary:focus {
+    ring-color: rgb(var(--color-primary));
+  }
+
+  .btn-secondary {
+    background-color: rgb(var(--color-surface-hover));
+    color: rgb(var(--color-text-primary));
+    border: 1px solid rgb(var(--color-border));
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    border: 2px solid rgb(var(--color-border));
+    color: rgb(var(--color-text-secondary));
+  }
+
+  .btn-outline:hover {
+    background-color: rgb(var(--color-surface-hover));
+    border-color: rgb(var(--color-primary));
+    color: rgb(var(--color-primary));
+  }
+
+  /* Card Components */
+  .card {
+    background-color: rgb(var(--color-surface));
+    border-color: rgb(var(--color-border));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgb(var(--color-border));
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: rgb(var(--color-primary) / 0.3);
+  }
+
+  /* Input Styles */
+  .input {
+    background-color: rgb(var(--color-surface));
+    border-color: rgb(var(--color-border));
+    color: rgb(var(--color-text-primary));
+    border-radius: var(--radius-lg);
+    border: 1px solid rgb(var(--color-border));
+    padding: var(--space-sm) var(--space-md);
+    width: 100%;
+  }
+
+  .input:focus {
+    border-color: rgb(var(--color-primary));
+    ring: 2px solid rgb(var(--color-primary) / 0.2);
+  }
+
+  /* Navigation Styles - Engineering Guild */
+  .nav-link {
+    @apply px-6 py-2 text-sm font-medium tracking-wider border rounded-full transition-all duration-200 focus:outline-none focus:ring-2;
+    border-color: rgb(var(--color-border));
+    color: rgb(var(--color-text-secondary));
+    border-radius: var(--radius-full);
+    letter-spacing: var(--letter-spacing-wider);
+    background-color: rgb(var(--color-surface));
+  }
+
+  .nav-link:hover {
+    border-color: rgb(var(--color-primary));
+    color: rgb(var(--color-primary));
+    background-color: rgb(var(--color-primary) / 0.05);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .nav-link:focus {
+    ring-color: rgb(var(--color-primary));
+  }
+
+  /* Loading Animations */
+  .loading-skeleton {
+    @apply animate-pulse rounded;
+    background-color: rgb(var(--color-surface-hover));
+  }
+
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2;
+    border-color: rgb(var(--color-border));
+    border-top-color: rgb(var(--color-primary));
+  }
+
+  /* Engineering Guild Gradient Utilities */
+  .gradient-primary {
+    background: linear-gradient(135deg, rgb(var(--color-primary)), rgb(var(--color-secondary)));
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, rgb(var(--color-primary)), rgb(var(--color-secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-guild {
+    background: linear-gradient(135deg, rgb(var(--color-guild-green)), rgb(var(--color-guild-emerald)));
+  }
+
+  /* Smooth Transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Glass Effect */
+  .glass {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+@layer utilities {
+  /* Custom Spacing */
+  .space-section {
+    padding: var(--space-4xl) 0;
+  }
+
+  .space-container {
+    padding: 0 var(--space-lg);
+  }
+
+  /* Text Utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  /* Responsive Typography */
+  .text-responsive-xl {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .text-responsive-lg {
+    font-size: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .text-responsive-md {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  /* Engineering Guild Specific Utilities */
+  .text-guild-green {
+    color: rgb(var(--color-guild-green));
+  }
+
+  .bg-guild-green {
+    background-color: rgb(var(--color-guild-green));
+  }
+
+  .border-guild-green {
+    border-color: rgb(var(--color-guild-green));
+  }
+}
+
+/* ===================================
+   ANIMATIONS
+   =================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Engineering Guild Pulse Animation */
+@keyframes guildPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-guild-pulse {
+  animation: guildPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ===================================
+   RESPONSIVE BREAKPOINTS
+   =================================== */
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .nav-link {
+    @apply px-4 py-1.5 text-xs;
+    font-size: var(--font-size-xs);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .btn {
+    @apply px-3 py-1.5 text-xs;
+    font-size: var(--font-size-xs);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .space-section {
+    padding: var(--space-2xl) 0;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .space-section {
+    padding: var(--space-3xl) 0;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}

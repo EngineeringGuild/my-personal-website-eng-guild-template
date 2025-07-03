@@ -8,7 +8,7 @@ import type { PageProps } from '@/types';
 /**
  * Home page component with dynamic profile data from Supabase
  * Features animated introduction with database-driven content
- * Displays profile image, name, title, and specialization
+ * Uses the new design system for consistent styling and typography
  */
 export default function Home(_props: PageProps): JSX.Element {
   const { data: profile, loading, error } = useProfile();
@@ -25,7 +25,7 @@ export default function Home(_props: PageProps): JSX.Element {
   const displayProfile = profile || fallbackProfile;
 
   /**
-   * Render loading state
+   * Render enhanced loading state with skeleton components
    */
   const renderLoading = (): JSX.Element => (
     <motion.div
@@ -33,30 +33,58 @@ export default function Home(_props: PageProps): JSX.Element {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col items-center justify-center"
+      className="flex flex-col items-center justify-center space-y-6"
     >
-      <div className="w-32 h-32 mb-8 rounded-full bg-gray-200 dark:bg-blueGray-700 animate-pulse"></div>
-      <div className="h-8 w-64 bg-gray-200 dark:bg-blueGray-700 rounded animate-pulse mb-4"></div>
-      <div className="h-6 w-48 bg-gray-200 dark:bg-blueGray-700 rounded animate-pulse mb-2"></div>
-      <div className="h-4 w-56 bg-gray-200 dark:bg-blueGray-700 rounded animate-pulse"></div>
+      {/* Profile Image Skeleton */}
+      <div className="w-32 h-32 rounded-full loading-skeleton"></div>
+      
+      {/* Name Skeleton */}
+      <div className="h-8 w-64 loading-skeleton rounded-lg"></div>
+      
+      {/* Title Skeleton */}
+      <div className="h-6 w-48 loading-skeleton rounded-lg"></div>
+      
+      {/* Bio Skeleton */}
+      <div className="h-4 w-56 loading-skeleton rounded-lg"></div>
+      
+      {/* Loading indicator */}
+      <div className="mt-4">
+        <div className="w-8 h-8 loading-spinner"></div>
+      </div>
     </motion.div>
   );
 
   /**
-   * Render profile content
+   * Render enhanced profile content with new design system
    */
   const renderProfile = (): JSX.Element => (
     <motion.div
       key="profile"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="flex flex-col items-center justify-center"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: 0.6,
+        delay: 0.2,
+        ease: [0.4, 0, 0.2, 1]
+      }}
+      className="flex flex-col items-center justify-center space-y-6"
     >
-      <div className="flex flex-col items-center justify-center">
-        {/* Profile Image */}
+      {/* Profile Image with enhanced styling */}
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ 
+          duration: 0.5,
+          delay: 0.3,
+          type: "spring",
+          stiffness: 300,
+          damping: 30
+        }}
+        className="relative"
+      >
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 to-pink-400 opacity-20 blur-xl"></div>
         <img 
-          className="w-32 h-32 mb-8 rounded-full object-cover shadow-lg"
+          className="relative w-32 h-32 rounded-full object-cover shadow-xl ring-4 ring-white dark:ring-gray-800 transition-transform duration-300 hover:scale-105"
           src={displayProfile.avatar_url || '/caio-solana.png'} 
           alt={`${displayProfile.name} profile photo`}
           loading="eager"
@@ -65,30 +93,80 @@ export default function Home(_props: PageProps): JSX.Element {
             (e.target as HTMLImageElement).src = '/caio-solana.png';
           }}
         />
-        
-        {/* Main Title */}
-        <h1 className="mx-auto text-2xl font-semibold tracking-widest text-center sm:text-3xl">
+      </motion.div>
+      
+      {/* Main Content Container */}
+      <div className="text-center space-y-4 max-w-2xl">
+        {/* Main Title with gradient text */}
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="text-responsive-xl font-bold gradient-text text-balance"
+        >
           {displayProfile.name?.toUpperCase() || 'CAIO A. S. CASTILHO'}
-        </h1>
+        </motion.h1>
         
-        {/* Decorative Divider */}
-        <hr className="w-16 my-8 border-gray-300" />
+        {/* Decorative Divider with enhanced styling */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex justify-center"
+        >
+          <div className="w-24 h-1 gradient-guild rounded-full"></div>
+        </motion.div>
         
         {/* Professional Title */}
-        <h2 className="text-lg tracking-widest text-center">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="text-responsive-lg font-semibold tracking-wider text-center"
+          style={{ color: 'rgb(var(--color-text-primary))' }}
+        >
           {displayProfile.title?.toUpperCase() || 'MECHATRONIC ENGINEER'}
-        </h2>
+        </motion.h2>
         
-        {/* Bio/Specialization */}
-        <h3 className="text-sm tracking-wider text-center text-gray-500 dark:text-gray-400 mt-2">
+        {/* Bio/Specialization with enhanced typography */}
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.0 }}
+          className="text-responsive-md font-medium tracking-wide text-center text-balance"
+          style={{ color: 'rgb(var(--color-text-secondary))' }}
+        >
           {displayProfile.bio?.toUpperCase() || 'PROJECT MANAGEMENT & SCALABILITY SPECIALIST'}
-        </h3>
+        </motion.p>
 
-        {/* Error indicator (if data failed to load but fallback is shown) */}
+        {/* Status indicator for data source */}
         {error && (
-          <div className="mt-4 text-xs text-yellow-600 dark:text-yellow-400 text-center">
-            <p>Using cached data - database connection unavailable</p>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 1.2 }}
+            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+          >
+            <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+            Using cached data - database unavailable
+          </motion.div>
+        )}
+
+        {/* Success indicator for live data */}
+        {!error && !loading && profile && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 1.2 }}
+            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+          >
+            <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            Live data from database
+          </motion.div>
         )}
       </div>
     </motion.div>
@@ -99,7 +177,9 @@ export default function Home(_props: PageProps): JSX.Element {
       title={profile?.name || "Caio Augusto Serra Castilho"}
       description={profile?.bio || "Caio Augusto Serra Castilho - Mechatronic Engineer, Project Management & Scalability Specialist"}
     >
-      {loading ? renderLoading() : renderProfile()}
+      <div className="min-h-[60vh] flex items-center justify-center py-8">
+        {loading ? renderLoading() : renderProfile()}
+      </div>
     </Layout>
   );
 }

@@ -92,11 +92,15 @@ const Layout: React.FC<LayoutProps> = ({
             {/* Navigation Component */}
             <Navigation />
 
-            {/* Main Content Area with Animated Border */}
-            <motion.main
-              layoutId="border-div"
-              className="flex flex-col items-center justify-center w-full py-8 my-6 mt-16 border-t border-b border-gray-300 dark:border-white"
-            >
+                    {/* Main Content Area with Enhanced Border */}
+        <motion.main
+          layoutId="border-div"
+          className="flex flex-col items-center justify-center w-full py-8 my-6 mt-16"
+          style={{
+            borderTop: '1px solid rgb(var(--color-border))',
+            borderBottom: '1px solid rgb(var(--color-border))',
+          }}
+        >
               <AnimatePresence mode="wait">
                 {children}
               </AnimatePresence>
