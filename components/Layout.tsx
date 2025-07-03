@@ -78,45 +78,45 @@ const Layout: React.FC<LayoutProps> = ({
           strategy="afterInteractive"
         />
 
-        {/* Fixed Dark Mode Toggle */}
-        <div className="fixed top-4 right-4 z-40">
+        {/* Fixed Dark Mode Toggle - Mobile optimized */}
+        <div className="fixed top-3 right-3 sm:top-4 sm:right-4 z-40">
           <DarkModeToggle
             isDark={theme === 'dark'}
             onClick={toggleDarkMode}
           />
         </div>
 
-        {/* Main Content Container - Properly Centered */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Content Container - Mobile optimized */}
+        <div className="container mx-auto px-3 sm:px-4 lg:px-8">
           <div className="max-w-2xl mx-auto">
             {/* Navigation Component */}
             <Navigation />
 
-                    {/* Main Content Area with Enhanced Border */}
-        <motion.main
-          layoutId="border-div"
-          className="flex flex-col items-center justify-center w-full py-8 my-6 mt-16"
-          style={{
-            borderTop: '1px solid rgb(var(--color-border))',
-            borderBottom: '1px solid rgb(var(--color-border))',
-          }}
-        >
+            {/* Main Content Area with Enhanced Border - Mobile optimized */}
+            <motion.main
+              layoutId="border-div"
+              className="flex flex-col items-center justify-center w-full py-6 sm:py-8 my-4 sm:my-6 mt-12 sm:mt-16"
+              style={{
+                borderTop: '1px solid rgb(var(--color-border))',
+                borderBottom: '1px solid rgb(var(--color-border))',
+              }}
+            >
               <AnimatePresence mode="wait">
                 {children}
               </AnimatePresence>
             </motion.main>
 
-            {/* Social Icons Section */}
-            <div className="flex justify-center py-6">
+            {/* Social Icons Section - Mobile optimized */}
+            <div className="flex justify-center py-4 sm:py-6">
               <SocialIcons />
             </div>
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="bg-white dark:bg-blueGray-800 border-t border-gray-200 dark:border-blueGray-600 mt-12">
-          <div className="container mx-auto px-4 py-6 text-center text-gray-600 dark:text-gray-300">
-            <p>&copy; 2024 Personal Website. Built with Next.js and TypeScript.</p>
+        {/* Footer - Mobile optimized */}
+        <footer className="bg-white dark:bg-blueGray-800 border-t border-gray-200 dark:border-blueGray-600 mt-8 sm:mt-12">
+          <div className="container mx-auto px-4 py-4 sm:py-6 text-center text-gray-600 dark:text-gray-300">
+            <p className="text-sm sm:text-base">&copy; 2024 Personal Website. Built with Next.js and TypeScript.</p>
           </div>
         </footer>
       </div>
