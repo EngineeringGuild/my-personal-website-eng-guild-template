@@ -9,7 +9,7 @@ import SocialIcons from '@/components/SocialIcons';
 import Navigation from '@/components/Navigation';
 import MetaTags from '@/components/MetaTags';
 import type { LayoutProps, ThemeMode } from '@/types';
-import { NavigationProvider } from '../context/NavigationContext';
+import { NavigationProvider } from '@/context/NavigationContext';
 
 /**
  * Main layout component that wraps all pages
@@ -78,31 +78,38 @@ const Layout: React.FC<LayoutProps> = ({
           strategy="afterInteractive"
         />
 
-        <div
-          style={{ minWidth: '24rem', maxWidth: '37rem' }}
-          className="flex flex-col items-center justify-center w-2/3"
-        >
-          <div className="fixed top-3 right-3 z-40">
-            <DarkModeToggle
-              isDark={theme === 'dark'}
-              onClick={toggleDarkMode}
-            />
-          </div>
-
-          <Navigation />
-
-          <motion.div
-            layoutId="border-div"
-            className="flex flex-col items-center justify-center w-full py-8 my-6 mt-16 border-t border-b border-gray-300 dark:border-white"
-          >
-            <AnimatePresence mode="wait">
-              {children}
-            </AnimatePresence>
-          </motion.div>
-
-          <SocialIcons />
+        {/* Fixed Dark Mode Toggle */}
+        <div className="fixed top-4 right-4 z-40">
+          <DarkModeToggle
+            isDark={theme === 'dark'}
+            onClick={toggleDarkMode}
+          />
         </div>
 
+        {/* Main Content Container - Properly Centered */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto">
+            {/* Navigation Component */}
+            <Navigation />
+
+            {/* Main Content Area with Animated Border */}
+            <motion.main
+              layoutId="border-div"
+              className="flex flex-col items-center justify-center w-full py-8 my-6 mt-16 border-t border-b border-gray-300 dark:border-white"
+            >
+              <AnimatePresence mode="wait">
+                {children}
+              </AnimatePresence>
+            </motion.main>
+
+            {/* Social Icons Section */}
+            <div className="flex justify-center py-6">
+              <SocialIcons />
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
         <footer className="bg-white dark:bg-blueGray-800 border-t border-gray-200 dark:border-blueGray-600 mt-12">
           <div className="container mx-auto px-4 py-6 text-center text-gray-600 dark:text-gray-300">
             <p>&copy; 2024 Personal Website. Built with Next.js and TypeScript.</p>

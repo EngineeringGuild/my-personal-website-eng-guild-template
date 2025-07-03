@@ -1,17 +1,12 @@
 // /Users/user/Desktop/Core%20Guild%20Project/projects/colabs/eng-teams/core/personal-website/personal-website-eng-guild-template/pages/menu.tsx
 
 import React, { useState } from 'react';
-import Layout from '../components/Layout';
+import Layout from '@/components/Layout';
+import type { MenuSection } from '@/types';
 
 /**
- * Menu section type definition
- */
-type MenuSection = 'biography' | 'projects';
-
-/**
- * Menu page with top navigation for Biography and Projects
- * High technical standard, clean and modern, ready for future content
- * @returns JSX.Element - Menu page with section navigation and content
+ * Menu page component with navigation between different sections
+ * @returns JSX.Element - Menu page with section navigation
  */
 const MenuPage: React.FC = () => {
   const [section, setSection] = useState<MenuSection>('biography');

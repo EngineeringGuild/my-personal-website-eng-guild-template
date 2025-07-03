@@ -1,8 +1,9 @@
-// /Users/user/Desktop/Core%20Guild%20Project/projects/colabs/eng-teams/core/personal-website/personal-website-eng-guild-template/pages/about.tsx
+// /pages/about.tsx
 
 import React from 'react';
-import Layout from '../components/Layout';
+import Layout from '@/components/Layout';
 import { motion } from 'framer-motion';
+import type { PageProps } from '@/types';
 
 /**
  * About page component - displays personal introduction and background information

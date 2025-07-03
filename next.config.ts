@@ -4,16 +4,15 @@ const nextConfig: NextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
   
-  // Enable static export for hosting providers like Hostinger
-  output: 'export',
-  
-  // Disable image optimization for static export
-  images: {
-    unoptimized: true
-  },
-  
-  // Configure trailing slash for better hosting compatibility
-  trailingSlash: true,
+  // Conditionally enable static export only for production deployment
+  // This allows API routes to work in development with Supabase
+  ...(process.env.NEXT_PUBLIC_DEPLOY_TARGET === 'static' && {
+    output: 'export',
+    trailingSlash: true,
+    images: {
+      unoptimized: true
+    },
+  }),
   
   // Configure asset prefix for production
   assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',

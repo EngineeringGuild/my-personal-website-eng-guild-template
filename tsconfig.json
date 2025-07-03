@@ -35,6 +35,7 @@
       "@/context/*": ["./context/*"],
       "@/styles/*": ["./styles/*"],
       "@/types/*": ["./types/*"],
+      "@/lib/*": ["./lib/*"],
       "@/utils/*": ["./utils/*"]
     }
   },

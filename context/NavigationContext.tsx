@@ -1,21 +1,28 @@
 // /context/NavigationContext.tsx
 
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import type { NavigationContextType, NavigationProviderProps } from '@/types';
 
 /**
  * NavigationContext provides global state for navigation menu position
  * Manages the visibility state of the top-right navigation menu
+ * Uses localStorage to persist state across page navigation
  */
 const NavigationContext = createContext<NavigationContextType | null>(null);
 
 /**
  * NavigationProvider component that wraps the app to provide navigation state
+ * Now uses localStorage to persist menu state across page navigation
  * @param children - React children components
  */
 export function NavigationProvider({ children }: NavigationProviderProps): JSX.Element {
-  // State to manage top-right navigation visibility
-  const [showNavTopRight, setShowNavTopRight] = useState<boolean>(false);
+  // Use localStorage to persist navigation state across page changes
+  // This ensures the menu stays expanded when navigating between pages
+  const { value: showNavTopRight, setValue: setShowNavTopRight } = useLocalStorage<boolean>(
+    'navigation-expanded', 
+    false
+  );
 
   // Context value with proper typing
   const contextValue: NavigationContextType = {

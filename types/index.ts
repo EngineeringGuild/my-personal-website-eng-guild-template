@@ -65,6 +65,19 @@ export interface PageProps {
 }
 
 // =============================================================================
+// BIOGRAPHY PAGE TYPES
+// =============================================================================
+
+export interface BiographyStage {
+  readonly key: string;
+  readonly label: string;
+}
+
+export type BiographyStageKey = 'infancy' | 'adolescence' | 'youth' | 'maturity' | 'present';
+
+export type MenuSection = 'biography' | 'projects';
+
+// =============================================================================
 // HOOK TYPES
 // =============================================================================
 
@@ -86,4 +99,57 @@ export interface ThemeContextType {
   readonly theme: ThemeMode;
   readonly setTheme: (theme: ThemeMode) => void;
   readonly isDark: boolean;
+}
+
+// =============================================================================
+// SUPABASE DATABASE TYPES
+// =============================================================================
+
+export interface DatabaseProfile {
+  readonly id: string;
+  readonly name: string;
+  readonly title: string;
+  readonly bio: string;
+  readonly avatar_url?: string;
+  readonly created_at: string;
+  readonly updated_at: string;
+}
+
+export interface DatabaseProject {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly image_url?: string;
+  readonly project_url?: string;
+  readonly technologies: readonly string[];
+  readonly created_at: string;
+  readonly updated_at: string;
+  readonly is_featured: boolean;
+  readonly order_index: number;
+}
+
+export interface DatabaseBiographyContent {
+  readonly id: string;
+  readonly stage: BiographyStageKey;
+  readonly title: string;
+  readonly content: string;
+  readonly created_at: string;
+  readonly updated_at: string;
+  readonly order_index: number;
+}
+
+// =============================================================================
+// API RESPONSE TYPES
+// =============================================================================
+
+export interface ApiResponse<T> {
+  readonly data: T | null;
+  readonly error: string | null;
+  readonly success: boolean;
+}
+
+export interface ApiError {
+  readonly message: string;
+  readonly code?: string;
+  readonly details?: Record<string, unknown>;
 }
